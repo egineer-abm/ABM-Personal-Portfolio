@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "ABM Personal Portfolio"
+description = "A personal portfolio for Abdul Basit Memon: a computer systems engineer, creative technologist, indie builder, and AI explorer documenting products, experiments, research, and learning."
+version = "1.0.0"
+id = "artifacts/abm-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25754
+
+[services.development]
+run = "pnpm --filter @workspace/abm-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abm-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/abm-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25754"
+BASE_PATH = "/"

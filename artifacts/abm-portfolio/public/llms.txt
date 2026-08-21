@@ -1,0 +1,35 @@
+# Abdul Basit Memon
+
+> Computer systems engineer, independent builder, AI explorer, researcher, and writer from Pakistan.
+
+## Profile
+
+- [About](https://www.engrabm.com/about)
+- [Experience](https://www.engrabm.com/experience)
+- [Now](https://www.engrabm.com/now)
+- [Contact](https://www.engrabm.com/contact)
+
+## Selected projects
+
+- [AGERE](https://www.engrabm.com/projects/agere) — recruitment agent built with Google ADK, RAG, Streamlit, and Gemini.
+- [BITA](https://www.engrabm.com/projects/bita) — local AI OCR invoice manager built with Gemini OCR, React, and Vite.
+- [SB0](https://www.engrabm.com/projects/sb0) — local-first second brain with RAG and a knowledge graph.
+- [Tool Stash](https://www.engrabm.com/projects/tool-stash) — agentic bookmarking and tool discovery.
+- [Roznama](https://www.engrabm.com/projects/roznama) — Markdown notes and personal wiki with Git sync.
+- [Notion Vault](https://www.engrabm.com/projects/notion-vault) — portable local password manager.
+- [Resources Heaven](https://www.engrabm.com/projects/resources-heaven) — community-maintained technology and AI resource hub.
+
+## Writing
+
+- [Writings](https://www.engrabm.com/writings)
+- [Notes](https://www.engrabm.com/notes)
+
+## Research
+
+- [Publications](https://www.engrabm.com/publications) — including the Intelligent Carpooling route matching thesis.
+
+## Links
+
+- [GitHub](https://github.com/abm1119)
+- [LinkedIn](https://pk.linkedin.com/in/abdul-basit-memon-614961166)
+- [Email](mailto:abm1119@ethz.ch)

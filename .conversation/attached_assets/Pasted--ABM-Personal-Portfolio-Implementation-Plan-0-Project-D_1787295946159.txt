@@ -1,0 +1,1601 @@
+# ABM Personal Portfolio — Implementation Plan
+
+## 0. Project Definition
+
+**Project:** Abdul Basit Memon (ABM) Personal Portfolio  
+**Domain:** `https://www.engrabm.com/`  
+**Design direction:** Quiet Technical Garden / Editorial Minimalism  
+**Primary feeling:** Personal, intelligent, restrained, experimental, human, memorable.
+
+The website should feel like a carefully maintained personal corner of the internet rather than a conventional developer portfolio.
+
+Core principle:
+
+> Build around what ABM makes, learns, writes, researches, and explores.
+
+Avoid generic portfolio patterns:
+- No giant gradient hero
+- No excessive glassmorphism
+- No skill percentage bars
+- No huge decorative 3D objects
+- No testimonial walls
+- No bloated dashboard-style layouts
+- No excessive cards
+- No animation for animation's sake
+
+The interface should be mostly black text on white with generous whitespace, strong typography, thin separators, tiny interaction details, and occasional subtle motion.
+
+---
+
+# 1. Goals
+
+## Primary Goals
+
+- Create a premium, minimal personal portfolio for ABM.
+- Make the site strongly recognizable without relying on loud branding.
+- Present software projects as the main proof of work.
+- Treat writings and notes as an evolving personal knowledge garden.
+- Make the site fast, accessible, responsive, and easy to maintain.
+- Establish a strong technical SEO foundation.
+- Make the site's content understandable to search engines and AI/LLM agents.
+- Keep the content architecture flexible enough to grow for years.
+
+## Secondary Goals
+
+- Make `/projects` useful as a real portfolio archive.
+- Make `/writings` suitable for long-form technical/editorial content.
+- Make `/notes` suitable for short, unfinished, raw ideas.
+- Make `/raw` expose a developer-friendly Markdown representation of the site.
+- Make the portfolio feel alive through restrained interactions rather than visual clutter.
+
+---
+
+# 2. Recommended Stack
+
+## Frontend
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/ui
+- Lucide icons
+- Motion / Framer Motion
+
+## Content
+
+Recommended initial approach:
+
+- Markdown / MDX files for writings, notes, projects, publications, and experience.
+- Frontmatter metadata for structured content.
+- Static generation where possible.
+- No database required for v1.
+
+Example:
+
+```md
+---
+title: "Building Local-First Software"
+slug: "building-local-first-software"
+date: "2026-08-20"
+type: "writing"
+tags:
+  - software
+  - local-first
+  - AI
+---
+
+Article content...
+```
+
+## Animation
+
+- Motion / Framer Motion for UI transitions.
+- Lottie only for a small number of special visual moments.
+- Prefer CSS transitions for simple hover states.
+
+## Fonts
+
+Primary:
+- Geist or Inter
+
+Monospace:
+- Geist Mono or IBM Plex Mono
+
+Editorial accent:
+- Instrument Serif or Newsreader
+
+Use at most 2–3 font families.
+
+---
+
+# 3. Design System
+
+## Colors
+
+```txt
+Background:       #FFFFFF
+Primary text:     #111111
+Secondary text:   #6B6B6B
+Muted text:       #999999
+Borders:          #E8E8E8
+Hover background: #F6F6F6
+```
+
+Do not introduce a persistent colorful brand palette in v1.
+
+Small contextual accents are allowed only where they add meaning.
+
+## Typography
+
+### Display
+
+Large but not enormous.
+
+Suggested:
+- 48–72px desktop
+- 36–48px tablet
+- 32–40px mobile
+
+### Body
+
+- 16–18px
+- line-height around 1.6–1.75
+
+### Metadata
+
+Use mono font:
+- 12–14px
+- uppercase or small labels
+- subtle letter spacing
+
+### Editorial text
+
+Occasionally use serif typography for emphasis or writing pages.
+
+## Borders
+
+Use thin borders:
+
+```css
+border-color: #E8E8E8;
+```
+
+Avoid strong shadows.
+
+## Radius
+
+Use very small radius values:
+
+```txt
+2px–6px
+```
+
+Do not make everything pill-shaped.
+
+---
+
+# 4. Layout System
+
+Desktop content width:
+
+```txt
+720px–860px
+```
+
+Some project archive sections may expand slightly wider.
+
+Use generous vertical rhythm.
+
+Approximate spacing scale:
+
+```txt
+8
+12
+16
+24
+32
+48
+64
+80
+120
+160
+```
+
+Do not fill empty space simply because space exists.
+
+Whitespace is part of the design.
+
+---
+
+# 5. Global Navigation
+
+Desktop:
+
+```txt
+ABM                         Home  Projects  Writings  Notes  About
+```
+
+Optional secondary links:
+
+```txt
+Publications
+Experience
+Contact
+```
+
+Do not overcrowd the header.
+
+Mobile:
+
+```txt
+ABM                                      Menu
+```
+
+Use a lightweight Sheet or custom menu.
+
+Navigation behavior:
+- transparent or white background
+- no giant sticky header
+- subtle border only when necessary
+- smooth active-state transitions
+
+---
+
+# 6. Homepage
+
+Route:
+
+```txt
+/
+```
+
+## Section A — Intro
+
+Structure:
+
+```txt
+ABDUL BASIT MEMON
+
+I build software,
+explore AI,
+and document the journey.
+
+Software · AI · Research · Design
+```
+
+Supporting copy:
+
+```txt
+Software engineer and independent builder interested in
+AI, developer tools, local-first software, research,
+design, education, and experimentation.
+```
+
+Primary links:
+
+```txt
+Projects
+Writings
+About
+```
+
+Optional tiny status:
+
+```txt
+● currently building
+```
+
+Do not over-explain the hero.
+
+## Section B — Tiny Motion
+
+Add one restrained visual detail.
+
+Examples:
+- small Lottie doodle
+- subtle orbit
+- hand-drawn cursor
+- tiny animated technical mark
+
+The animation must remain secondary to the typography.
+
+## Section C — Selected Work
+
+Show only 4–6 projects.
+
+Recommended initial featured projects:
+
+1. AGERE
+2. BITA
+3. SB0
+4. Tool Stash
+5. Roznama
+6. Notion Vault
+
+Use a list rather than a traditional card grid.
+
+Example:
+
+```txt
+01   AGERE
+     Agentic Recruiter
+     Google ADK · RAG · Gemini
+                                      →
+
+02   BITA
+     Local AI Invoice Manager
+     React · Vite · Gemini OCR
+                                      →
+```
+
+On hover:
+- shift arrow slightly
+- reveal tiny project preview
+- animate metadata subtly
+
+## Section D — Latest Writing
+
+Display 3–5 recent writings.
+
+Format:
+
+```txt
+Aug 20, 2026
+Building Local-First Software
+software · architecture
+
+Aug 10, 2026
+What I Learned Building...
+AI · engineering
+```
+
+## Section E — Currently
+
+Small personal snapshot:
+
+```txt
+BUILDING
+...
+
+LEARNING
+...
+
+THINKING ABOUT
+...
+
+EXPLORING
+...
+```
+
+## Section F — Contact
+
+Minimal CTA:
+
+```txt
+Have something worth building?
+
+hello@engrabm.com
+```
+
+## Section G — Footer
+
+Example:
+
+```txt
+ABM
+
+Built with curiosity,
+and probably too many browser tabs.
+
+© 2026 Abdul Basit Memon
+
+GitHub · LinkedIn · Email
+```
+
+---
+
+# 7. Projects
+
+Route:
+
+```txt
+/projects
+```
+
+Purpose:
+- Full project archive
+- Show breadth without making every project equally prominent
+
+Header:
+
+```txt
+Projects
+
+Things I've built, experimented with,
+broken, rebuilt, and occasionally shipped.
+```
+
+## Filters
+
+```txt
+ALL
+AI
+SOFTWARE
+TOOLS
+WEB
+MOBILE
+HARDWARE
+ACADEMIC
+```
+
+Avoid large filter cards.
+
+Use understated text tabs.
+
+## Project groups
+
+### AI / Software
+
+Featured:
+
+- AGERE
+- BITA
+- Kutbi
+- Tool Stash
+- Manzil-Ikigai
+- SB0
+- Roznama
+- Notion Vault
+- Notion Vault CLI
+- Agentic Learning-Mentor
+- Prompt Inspector
+- Mamba
+- Resources Heaven
+- AI Coding Tools Directory
+- Personal LMS
+- Writely
+
+### Earlier / Academic / Engineering
+
+- TechdioApp
+- Intelligent Carpooling App
+- Student Management System
+- Space Shooter
+- 3D House Design
+
+### Hardware / Robotics
+
+- Arduino Vehicle Speed Detector
+- Arduino Crane
+- Arduino Night Patrol Surveillance Robot
+
+Project information should come from the supplied portfolio project catalog.
+
+---
+
+# 8. Project Detail Pages
+
+Each significant project gets:
+
+```txt
+/projects/[slug]
+```
+
+Structure:
+
+```txt
+Project number
+Project name
+One-line description
+
+Status
+Year
+Role
+Stack
+
+Overview
+
+Problem
+
+Approach
+
+How it works
+
+Interesting technical decisions
+
+Screenshots / demos
+
+Links
+
+What I learned
+
+Related projects
+```
+
+Do not write every project as a corporate case study.
+
+Keep the voice personal and technical.
+
+Useful project metadata:
+
+```txt
+status
+year
+category
+stack
+repository
+demo
+article
+screenshots
+featured
+```
+
+---
+
+# 9. Writings
+
+Route:
+
+```txt
+/writings
+```
+
+Purpose:
+Long-form articles, essays, technical explanations, build logs, and reflections.
+
+Design:
+
+```txt
+Writings
+
+Things I think about.
+
+2026
+
+20 AUG
+Building...
+
+08 AUG
+...
+
+12 JUL
+...
+```
+
+Prefer a chronological editorial list over a blog-card grid.
+
+Each writing page:
+
+```txt
+/writings/[slug]
+```
+
+Include:
+- title
+- date
+- reading time
+- tags
+- article content
+- related writings
+- previous/next navigation
+
+Add structured metadata suitable for article content.
+
+---
+
+# 10. Notes
+
+Route:
+
+```txt
+/notes
+```
+
+Purpose:
+Short thoughts, fragments, discoveries, links, technical observations, unfinished ideas.
+
+Design should be intentionally raw.
+
+Example:
+
+```txt
+/notes
+
+why local-first software keeps
+appealing to me
+
+#software #privacy
+
+────────────────────────
+
+things I learned about RAG today
+
+#rag #llm
+```
+
+Each note can have:
+
+```txt
+/notes/[slug]
+```
+
+Notes should not need a polished article format.
+
+---
+
+# 11. Publications
+
+Route:
+
+```txt
+/publications
+```
+
+Use a simple research bibliography style.
+
+Example:
+
+```txt
+2025
+
+Intelligent Carpooling:
+Route Matching and Overlap Feasibility...
+
+Bachelor's Thesis
+Computer Systems Engineering
+```
+
+Each publication can expose:
+- title
+- year
+- type
+- abstract
+- authors
+- institution
+- PDF
+- repository
+- related project
+
+Use clean typography, not academic-dashboard styling.
+
+---
+
+# 12. Experience
+
+Route:
+
+```txt
+/experience
+```
+
+Use editorial timeline layout.
+
+Example:
+
+```txt
+2026
+Python & Web Development Trainer
+BBSYDP
+
+2025
+B.E. Computer Systems Engineering
+Sukkur IBA University
+```
+
+Each entry:
+
+```txt
+Year
+Role
+Organization
+Location
+Description
+Links
+```
+
+Do not use excessive timeline graphics.
+
+---
+
+# 13. About
+
+Route:
+
+```txt
+/about
+```
+
+The page should feel personal rather than like a resume.
+
+Recommended sections:
+
+```txt
+Who I am
+
+What I build
+
+What I'm interested in
+
+Currently exploring
+
+Outside software
+
+Links
+```
+
+Possible tone:
+
+```txt
+I'm Abdul Basit, a software engineer and independent
+builder from Pakistan.
+
+I like making things.
+
+Sometimes they're useful.
+Sometimes they're experiments.
+Sometimes they're terrible ideas
+that teach me something.
+```
+
+Keep it honest and specific.
+
+---
+
+# 14. Contact
+
+Route:
+
+```txt
+/contact
+```
+
+Prefer simple links over a complicated form.
+
+Example:
+
+```txt
+Let's talk.
+
+Have an interesting idea?
+Want to build something?
+Found something worth discussing?
+
+hello@engrabm.com
+
+GitHub
+LinkedIn
+X
+```
+
+A contact form is optional for v2.
+
+---
+
+# 15. /now
+
+Add:
+
+```txt
+/now
+```
+
+Purpose:
+A snapshot of current work and interests.
+
+Structure:
+
+```txt
+What I'm doing now
+
+BUILDING
+...
+
+LEARNING
+...
+
+READING
+...
+
+THINKING ABOUT
+...
+
+EXPLORING
+...
+```
+
+This should be easy to update manually.
+
+---
+
+# 16. /raw
+
+Add:
+
+```txt
+/raw
+```
+
+Purpose:
+Developer-friendly representation of the portfolio.
+
+Show:
+
+```txt
+README.md
+about.md
+projects.md
+experience.md
+publications.md
+writings.md
+notes.md
+now.md
+ideas.md
+stack.md
+beliefs.md
+```
+
+Opening an item renders Markdown.
+
+This reinforces the personal-website / technical-notebook identity.
+
+---
+
+# 17. Command Palette
+
+Keyboard shortcut:
+
+```txt
+Ctrl + K
+Cmd + K
+```
+
+Use shadcn Command.
+
+Actions:
+
+```txt
+Search...
+Go to Home
+Go to Projects
+Go to Writings
+Go to Notes
+Go to Publications
+Go to Experience
+Go to About
+Go to Now
+Go to Raw
+Open GitHub
+Contact
+```
+
+Also support content search later.
+
+---
+
+# 18. Motion System
+
+Motion should be restrained.
+
+## Page entry
+
+```txt
+opacity: 0 → 1
+translateY: 8px → 0
+duration: 200–300ms
+```
+
+## Links
+
+```txt
+150–200ms
+```
+
+## Project hover
+
+Small horizontal movement:
+
+```txt
+translateX: 0 → 4px
+```
+
+## Images
+
+Very subtle:
+- fade
+- slight scale
+- no dramatic parallax
+
+## Respect reduced motion
+
+Always respect:
+
+```css
+prefers-reduced-motion
+```
+
+Disable non-essential animations for users who request reduced motion.
+
+---
+
+# 19. Lottie Strategy
+
+Use Lottie sparingly.
+
+Maximum initial usage:
+
+```txt
+Homepage hero: 1
+Contact: 1
+Optional empty state: 1
+```
+
+Do not add animation to every project.
+
+Animation should communicate personality, not compensate for lack of content.
+
+---
+
+# 20. Accessibility
+
+Requirements:
+
+- semantic HTML
+- proper heading hierarchy
+- keyboard navigation
+- visible focus states
+- accessible links
+- sufficient text contrast
+- image alt text
+- reduced-motion support
+- no information conveyed only through animation
+- mobile tap targets large enough
+- screen-reader friendly navigation
+
+Avoid using divs as buttons.
+
+---
+
+# 21. Responsive Strategy
+
+## Mobile first
+
+Breakpoints can be approximately:
+
+```txt
+mobile: < 640
+tablet: 640–1024
+desktop: > 1024
+```
+
+Mobile should not simply be the desktop layout compressed.
+
+On mobile:
+- reduce display typography
+- collapse nav
+- keep generous whitespace, but reduce vertical excess
+- convert project previews to inline previews
+- preserve readable line lengths
+- avoid hover-only interactions
+- make every important interaction tap-friendly
+
+---
+
+# 22. SEO Foundation
+
+Every route needs:
+
+```txt
+title
+description
+canonical URL
+Open Graph title
+Open Graph description
+Open Graph image
+Twitter card
+author
+```
+
+Examples:
+
+```txt
+Home:
+Abdul Basit Memon — Software Engineer & Independent Builder
+
+Projects:
+Projects — Abdul Basit Memon
+
+Writings:
+Writings — Abdul Basit Memon
+
+Notes:
+Notes — Abdul Basit Memon
+```
+
+Descriptions should be human-readable.
+
+Do not keyword-stuff titles.
+
+---
+
+# 23. Structured Data
+
+Homepage:
+
+- Person
+- WebSite
+- ProfilePage
+
+Writing pages:
+
+- Article
+
+Project pages:
+
+Use appropriate structured data only when it genuinely represents visible content.
+
+Important rule:
+
+Structured data must describe content that is actually present on the page.
+
+---
+
+# 24. Robots / Sitemap / Canonical
+
+Create:
+
+```txt
+/robots.txt
+/sitemap.xml
+```
+
+Include all public indexable routes.
+
+Do not expose private/draft content.
+
+Ensure canonical URLs use HTTPS and the final production domain.
+
+---
+
+# 25. llms.txt
+
+Create:
+
+```txt
+/llms.txt
+```
+
+Purpose:
+Provide a concise machine-readable map of the website.
+
+Recommended structure:
+
+```md
+# Abdul Basit Memon
+
+> Software engineer, independent builder, AI explorer,
+> researcher and writer from Pakistan.
+
+## Profile
+
+- [About](...)
+- [Experience](...)
+- [Now](...)
+
+## Projects
+
+- [AGERE](...)
+- [BITA](...)
+- [SB0](...)
+- [Tool Stash](...)
+- [Roznama](...)
+- [Notion Vault](...)
+
+## Writing
+
+- [Writings](...)
+- [Notes](...)
+
+## Research
+
+- [Publications](...)
+
+## Links
+
+- [GitHub](...)
+- [LinkedIn](...)
+```
+
+Treat `llms.txt` as an additional machine-readable interface, not as a replacement for normal SEO.
+
+---
+
+# 26. AI / Machine-Readable Content Layer
+
+Optionally add:
+
+```txt
+/ai
+```
+
+with:
+
+```txt
+/ai/index.md
+/ai/about.md
+/ai/projects.md
+/ai/experience.md
+/ai/publications.md
+/ai/writings.md
+/ai/faq.md
+```
+
+Keep the content factual and easy to parse.
+
+Recommended fields:
+
+```txt
+NAME
+ROLE
+LOCATION
+INTERESTS
+PROJECTS
+EXPERIENCE
+EDUCATION
+PUBLICATIONS
+CURRENT_WORK
+LINKS
+```
+
+Do not add fake SEO text.
+
+---
+
+# 27. Content Architecture
+
+Recommended directory:
+
+```txt
+src/
+  content/
+    projects/
+    writings/
+    notes/
+    publications/
+    experience/
+    pages/
+
+public/
+  images/
+  lottie/
+  favicon/
+  og/
+
+src/
+  components/
+  layouts/
+  pages/
+  lib/
+  styles/
+```
+
+Example:
+
+```txt
+content/
+  projects/
+    agere.md
+    bita.md
+    sb0.md
+    tool-stash.md
+    roznama.md
+    notion-vault.md
+
+  writings/
+    ...
+
+  notes/
+    ...
+
+  publications/
+    ...
+
+  experience/
+    ...
+```
+
+---
+
+# 28. Data Model
+
+## Project
+
+```ts
+type Project = {
+  slug: string
+  title: string
+  shortDescription: string
+  description: string
+  year: number
+  status: "building" | "active" | "completed" | "archived"
+  category: string
+  stack: string[]
+  featured: boolean
+  links?: {
+    github?: string
+    demo?: string
+    article?: string
+    paper?: string
+  }
+  image?: string
+}
+```
+
+## Writing
+
+```ts
+type Writing = {
+  slug: string
+  title: string
+  excerpt: string
+  date: string
+  tags: string[]
+  readingTime?: string
+}
+```
+
+## Note
+
+```ts
+type Note = {
+  slug: string
+  title: string
+  date: string
+  tags: string[]
+}
+```
+
+---
+
+# 29. Initial Content
+
+Populate the first release with verified project information from the portfolio catalog.
+
+Strong first-wave projects:
+
+### AGERE
+
+Google ADK, RAG, Streamlit, Gemini.
+
+Agentic recruiter created as an agentic AI course capstone.
+
+### BITA
+
+Gemini OCR + React/Vite.
+
+Local-first vendor invoice management.
+
+### Kutbi
+
+FastAPI + Streamlit + Groq/OpenRouter + yt-dlp.
+
+YouTube learning/workout extraction system.
+
+### Tool Stash
+
+Agentic bookmarking and tool discovery.
+
+Notion database + search.
+
+### SB0
+
+Gemini BYOK + RAG + knowledge graph.
+
+Local-first second-brain system.
+
+### Roznama
+
+Markdown + Git + offline search.
+
+Minimal personal notes/wiki system.
+
+### Notion Vault
+
+Python + Flask + SQLite + Chrome extension.
+
+Local password manager.
+
+### Prompt Inspector
+
+Python + web UI + CLI.
+
+Prompt analysis, hardening, stress testing, and export.
+
+The supplied project catalog contains the authoritative descriptions and links for these projects. Use it as the source when writing project content.
+
+---
+
+# 30. Image Strategy
+
+Do not use generic stock photos.
+
+Preferred visuals:
+- actual screenshots
+- project UI
+- diagrams
+- code fragments
+- subtle generated abstract marks
+- personal photography where appropriate
+
+Project previews should be:
+- clean
+- cropped intentionally
+- high resolution
+- consistent aspect ratio
+
+Use lazy loading for below-the-fold images.
+
+---
+
+# 31. Favicon / Identity
+
+Create a very simple favicon.
+
+Possible concepts:
+
+```txt
+AB
+A/
+<> 
+```
+
+Prefer a typographic mark.
+
+Keep it black/white.
+
+Do not make the favicon visually complicated.
+
+---
+
+# 32. Social Sharing
+
+Create one Open Graph image system.
+
+Example:
+
+```txt
+ABM
+
+Abdul Basit Memon
+Software · AI · Research · Design
+engrabm.com
+```
+
+For projects, dynamically generated OG images can include:
+
+```txt
+AGERE
+Agentic Recruiter
+Google ADK · RAG · Gemini
+```
+
+Keep them monochrome.
+
+---
+
+# 33. Performance
+
+Target:
+- fast initial load
+- minimal JavaScript
+- optimized images
+- lazy-loaded project assets
+- no unnecessary animation packages
+- no huge client-side bundle
+- static content whenever possible
+
+Avoid adding a backend unless it solves a real requirement.
+
+Do not introduce a database in v1.
+
+---
+
+# 34. Security
+
+- Never expose private API keys.
+- Do not collect unnecessary personal data.
+- Sanitize/render Markdown safely.
+- Avoid unsafe HTML injection.
+- Validate external links.
+- Do not expose draft/private notes through sitemap or public routes.
+
+---
+
+# 35. Analytics
+
+Do not add a heavy tracking platform initially.
+
+Prefer:
+- no analytics in v1, or
+- lightweight privacy-conscious analytics later.
+
+The portfolio should remain fast and respectful.
+
+---
+
+# 36. Development Phases
+
+## Phase 1 — Foundation
+
+- [ ] Initialize React + TypeScript + Vite
+- [ ] Configure Tailwind
+- [ ] Add shadcn/ui
+- [ ] Configure fonts
+- [ ] Create global CSS variables
+- [ ] Configure routing
+- [ ] Create layout system
+- [ ] Create navigation
+- [ ] Create footer
+- [ ] Create mobile navigation
+
+Deliverable:
+
+A clean empty shell matching the visual system.
+
+---
+
+## Phase 2 — Core Pages
+
+- [ ] Homepage
+- [ ] Projects archive
+- [ ] Project detail template
+- [ ] Writings archive
+- [ ] Writing detail template
+- [ ] Notes archive
+- [ ] Note detail template
+- [ ] About
+- [ ] Contact
+- [ ] Experience
+- [ ] Publications
+
+---
+
+## Phase 3 — Personal Web
+
+- [ ] `/now`
+- [ ] `/raw`
+- [ ] Markdown renderer
+- [ ] raw document navigation
+- [ ] command palette
+- [ ] keyboard navigation
+- [ ] content search
+
+---
+
+## Phase 4 — Content
+
+Add initial project content:
+
+- [ ] AGERE
+- [ ] BITA
+- [ ] Kutbi
+- [ ] Tool Stash
+- [ ] SB0
+- [ ] Roznama
+- [ ] Notion Vault
+- [ ] Prompt Inspector
+- [ ] Mamba
+- [ ] Resources Heaven
+- [ ] AI Coding Tools Directory
+- [ ] Personal LMS
+- [ ] Writely
+- [ ] TechdioApp
+- [ ] Intelligent Carpooling App
+- [ ] Student Management System
+- [ ] Arduino projects
+- [ ] Space Shooter
+- [ ] CAD project
+
+Only feature the most important work on the homepage.
+
+---
+
+## Phase 5 — Motion
+
+- [ ] Page transitions
+- [ ] Project hover states
+- [ ] Link motion
+- [ ] command palette transitions
+- [ ] subtle Lottie hero animation
+- [ ] subtle contact animation
+- [ ] reduced-motion support
+
+---
+
+## Phase 6 — SEO / AI Discovery
+
+- [ ] Metadata per route
+- [ ] canonical URLs
+- [ ] Open Graph
+- [ ] Twitter cards
+- [ ] sitemap
+- [ ] robots
+- [ ] JSON-LD
+- [ ] `llms.txt`
+- [ ] optional `/ai` Markdown layer
+- [ ] clean URLs
+- [ ] proper internal linking
+
+---
+
+## Phase 7 — Quality
+
+- [ ] Mobile testing
+- [ ] Tablet testing
+- [ ] Desktop testing
+- [ ] Keyboard accessibility
+- [ ] Screen-reader review
+- [ ] Reduced-motion review
+- [ ] Broken link scan
+- [ ] Image optimization
+- [ ] Lighthouse / performance review
+- [ ] metadata validation
+- [ ] structured data validation
+
+---
+
+# 37. Definition of Done
+
+The website is ready for v1 when:
+
+### Visual
+
+- [ ] It feels intentional within the first 5 seconds.
+- [ ] White space dominates the experience.
+- [ ] Typography feels premium.
+- [ ] There are no unnecessary visual effects.
+- [ ] The site does not look like a generic AI portfolio.
+- [ ] Desktop and mobile both feel designed rather than merely responsive.
+
+### Content
+
+- [ ] Most important projects are represented accurately.
+- [ ] Project descriptions are clear.
+- [ ] About page feels personal.
+- [ ] Writings and Notes feel distinct.
+- [ ] `/now` is useful.
+- [ ] `/raw` feels native to the site.
+
+### Technical
+
+- [ ] No console errors.
+- [ ] No broken navigation.
+- [ ] All important pages are indexable.
+- [ ] SEO metadata exists.
+- [ ] Sitemap works.
+- [ ] Robots file works.
+- [ ] Structured data is valid.
+- [ ] `llms.txt` is accessible.
+- [ ] Site is responsive.
+- [ ] Keyboard navigation works.
+- [ ] Reduced motion works.
+
+---
+
+# 38. Final Quality Rule
+
+Before adding any element, ask:
+
+> Does this make the website more useful, more personal, or more memorable?
+
+If the answer is no, remove it.
+
+The portfolio should feel like:
+
+**a person who builds things and thinks deeply about them**
+
+not:
+
+**a website trying to prove that the person is a developer.**
+
+That distinction is the foundation of the entire design.
