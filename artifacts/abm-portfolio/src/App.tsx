@@ -31,24 +31,20 @@ function SiteHeader({ onCommand }: { onCommand: () => void }) {
   const isActive = (href: string) => href === '/' ? location === '/' : location === href || location.startsWith(`${href}/`);
   const go = (href: string) => { setOpen(false); setLocation(href); };
   return (
-    <header className="relative z-20 border-b border-[hsl(var(--border)/.7)] bg-[hsl(var(--background)/.94)] backdrop-blur-sm">
-      <div className="mx-auto flex min-h-[72px] max-w-[1180px] items-center justify-between px-5 md:px-8">
+    <header className="relative z-20">
+      <div className="mx-auto flex min-h-[72px] max-w-[680px] items-center justify-between px-5">
         <Link href="/" data-testid="link-brand" className="focus-ring group flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center border border-[hsl(var(--foreground))] text-[11px] font-semibold tracking-[-.08em] transition-colors group-hover:bg-[hsl(var(--foreground))] group-hover:text-[hsl(var(--background))]">AB</span>
-          <span className="hidden text-[12px] font-medium tracking-[.08em] sm:block">ABDUL BASIT MEMON</span>
+          <span className="text-[15px] font-semibold tracking-[-.04em]">abm</span>
         </Link>
-        <nav className="hidden items-center gap-6 md:flex" aria-label="Primary navigation">
-          {navItems.map((item) => <Link key={item.href} href={item.href} data-testid={`link-nav-${item.label.toLowerCase()}`} className={`focus-ring text-[12px] transition-colors ${isActive(item.href) ? 'text-[hsl(var(--foreground))]' : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]'}`}>{item.label}</Link>)}
-          <button data-testid="button-command-desktop" onClick={onCommand} aria-label="Open command palette" className="focus-ring ml-1 flex items-center gap-2 border-l border-[hsl(var(--border))] pl-5 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]">
-            <Search size={14} /><span className="font-mono-ui text-[11px]">⌘K</span>
-          </button>
+        <nav className="hidden items-center gap-5 text-[13px] md:flex" aria-label="Primary navigation">
+          {navItems.slice(1).map((item) => <Link key={item.href} href={item.href} data-testid={`link-nav-${item.label.toLowerCase()}`} className={`focus-ring transition-colors ${isActive(item.href) ? 'text-[hsl(var(--foreground))]' : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--accent))]'}`}>{item.label.toLowerCase()}</Link>)}
         </nav>
         <button data-testid="button-mobile-menu" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'} className="focus-ring flex items-center gap-2 text-[12px] md:hidden">
           {open ? <X size={17} /> : <Menu size={17} />}<span>{open ? 'Close' : 'Menu'}</span>
         </button>
       </div>
-      {open && <div className="border-t border-[hsl(var(--border))] px-5 py-5 md:hidden">
-        <nav className="mx-auto flex max-w-[1180px] flex-col gap-1" aria-label="Mobile navigation">
+      {open && <div className="border-t border-[hsl(var(--border))] px-5 py-4 md:hidden">
+        <nav className="mx-auto flex max-w-[680px] flex-col gap-1" aria-label="Mobile navigation">
           {[...navItems, { href: '/experience', label: 'Experience' }, { href: '/publications', label: 'Publications' }, { href: '/now', label: 'Now' }, { href: '/raw', label: 'Raw' }, { href: '/contact', label: 'Contact' }].map((item) => <button key={item.href} data-testid={`button-mobile-${item.label.toLowerCase()}`} onClick={() => go(item.href)} className="focus-ring flex w-full items-center justify-between border-b border-[hsl(var(--border)/.7)] py-3 text-left text-[14px]">{item.label}<ArrowRight size={14} className={isActive(item.href) ? 'text-[hsl(var(--accent))]' : 'text-[hsl(var(--muted-foreground))]'} /></button>)}
           <button data-testid="button-command-mobile" onClick={() => { setOpen(false); onCommand(); }} className="focus-ring flex items-center gap-2 pt-4 text-left text-[12px] text-[hsl(var(--muted-foreground))]"><Search size={14} /> Search this site <span className="font-mono-ui ml-auto">⌘K</span></button>
         </nav>
@@ -58,9 +54,9 @@ function SiteHeader({ onCommand }: { onCommand: () => void }) {
 }
 
 function SiteFooter() {
-  return <footer className="mx-auto mt-28 max-w-[1180px] border-t border-[hsl(var(--border))] px-5 py-8 md:px-8">
-    <div className="flex flex-col justify-between gap-5 text-[12px] text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center">
-      <div><span className="font-medium text-[hsl(var(--foreground))]">ABM</span><span className="mx-2">/</span>Built with curiosity, and probably too many browser tabs.</div>
+  return <footer className="mx-auto mt-20 max-w-[680px] border-t border-[hsl(var(--border))] px-5 py-8">
+    <div className="flex flex-col gap-4 text-[12px] text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
+      <div><span className="font-medium text-[hsl(var(--foreground))]">abm</span><span className="mx-2">·</span>built with curiosity and too many browser tabs.</div>
       <div className="flex items-center gap-4">
         <a data-testid="link-footer-github" href="https://github.com/abm1119" target="_blank" rel="noreferrer" className="focus-ring hover:text-[hsl(var(--foreground))]">GitHub</a>
         <a data-testid="link-footer-linkedin" href="https://pk.linkedin.com/in/abdul-basit-memon-614961166" target="_blank" rel="noreferrer" className="focus-ring hover:text-[hsl(var(--foreground))]">LinkedIn</a>
@@ -121,54 +117,42 @@ function SectionLabel({ children }: { children: ReactNode }) {
 
 function PageIntro({ kicker, title, children }: { kicker: string; title: string; children: ReactNode }) {
   return <div className="mb-20 max-w-[780px]">
-    <SectionLabel>{kicker}</SectionLabel>
-    <h1 className="text-balance font-display text-[clamp(3rem,7vw,5.75rem)] leading-[.93] tracking-[-.045em]">{title}</h1>
-    <div className="mt-7 max-w-[580px] text-[16px] leading-[1.75] text-[hsl(var(--muted-foreground))]">{children}</div>
+    <div className="mb-4 font-mono-ui text-[11px] text-[hsl(var(--muted-foreground))]">{kicker.toLowerCase()}</div>
+    <h1 className="text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-[-.05em]">{title}</h1>
+    <div className="mt-5 max-w-[580px] text-[16px] leading-[1.7] text-[hsl(var(--muted-foreground))]">{children}</div>
   </div>;
 }
 
 function Home() {
   usePageMeta('Abdul Basit Memon — Software, AI, Research, Design', 'The personal corner of Abdul Basit Memon: a computer systems engineer, independent builder, and AI explorer from Pakistan.');
-  const featured = projects.filter((project) => project.featured);
-  return <div className="mx-auto max-w-[1180px] px-5 md:px-8">
-    <section className="grid min-h-[calc(100dvh-72px)] items-center gap-16 py-20 lg:grid-cols-[1fr_260px] lg:gap-24">
-      <div className="max-w-[830px]">
-        <div className="reveal font-mono-ui text-[11px] uppercase tracking-[.17em] text-[hsl(var(--muted-foreground))]">Abdul Basit Memon <span className="mx-2 text-[hsl(var(--accent))]">/</span> Pakistan</div>
-        <h1 className="reveal reveal-delay-1 mt-7 max-w-[800px] text-balance font-display text-[clamp(3.8rem,8vw,7.8rem)] leading-[.86] tracking-[-.055em]">I build software,<br /><em className="text-[hsl(var(--accent))]">explore AI,</em><br />and document the journey.</h1>
-        <p className="reveal reveal-delay-2 mt-10 max-w-[590px] text-[17px] leading-[1.7] text-[hsl(var(--muted-foreground))]">Computer systems engineer, creative technologist, and independent builder interested in AI, developer tools, local-first software, research, design, and education.</p>
-        <div className="reveal reveal-delay-3 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4 text-[13px]">
-          <ArrowLink href="/projects" className="font-medium text-[hsl(var(--foreground))]">See the projects</ArrowLink>
-          <ArrowLink href="/about" className="text-[hsl(var(--muted-foreground))]">A little about me</ArrowLink>
-        </div>
+  const homeLinks = [
+    { href: '/projects', label: 'projects', description: 'things I have built, tested, and shipped' },
+    { href: '/writings', label: 'writings', description: 'longer thoughts about software and AI' },
+    { href: '/notes', label: 'notes', description: 'small ideas before they become articles' },
+    { href: '/about', label: 'about', description: 'the person behind the tabs' },
+    { href: '/now', label: 'now', description: 'what has my attention lately' },
+  ];
+  return <div className="mx-auto max-w-[680px] px-5">
+    <section className="py-24 sm:py-32">
+      <div className="font-mono-ui text-[11px] text-[hsl(var(--muted-foreground))]">Abdul Basit Memon · Pakistan</div>
+      <h1 className="mt-6 max-w-[610px] text-[clamp(2.5rem,8vw,4.6rem)] font-semibold leading-[1.02] tracking-[-.065em]">I build things with software, AI, and an unreasonable number of browser tabs.</h1>
+      <p className="mt-7 max-w-[520px] text-[16px] leading-[1.7] text-[hsl(var(--muted-foreground))]">Computer systems engineer, creative technologist, and independent builder. Interested in AI tools, education, local-first software, design, and making useful ideas easier to reach.</p>
+    </section>
+    <section className="border-t border-[hsl(var(--border))] py-10">
+      <SectionLabel>Around here</SectionLabel>
+      <div className="space-y-1">
+        {homeLinks.map((item) => <Link key={item.href} href={item.href} data-testid={`link-home-${item.label}`} className="group flex items-baseline justify-between gap-5 py-3 text-[15px] focus-ring"><span><span className="text-[hsl(var(--accent))]">/{item.label}</span><span className="text-[hsl(var(--muted-foreground))]"> — {item.description}</span></span><ArrowRight size={14} className="shrink-0 text-[hsl(var(--muted-foreground))] transition-transform group-hover:translate-x-1 group-hover:text-[hsl(var(--accent))]" /></Link>)}
       </div>
-      <aside className="reveal reveal-delay-3 border-l border-[hsl(var(--border))] pl-6 lg:mt-24">
-        <div className="font-mono-ui text-[10px] uppercase tracking-[.16em] text-[hsl(var(--muted-foreground))]">Currently</div>
-        <div className="mt-6 space-y-5 text-[13px] leading-[1.5]">
-          <div><span className="block font-mono-ui text-[10px] uppercase text-[hsl(var(--accent))]">Building</span><span className="mt-1 block">AI tools, open resources, and a YouTube knowledge practice.</span></div>
-          <div><span className="block font-mono-ui text-[10px] uppercase text-[hsl(var(--accent))]">Learning</span><span className="mt-1 block">Agentic systems, diffusion models, and better ways to teach with software.</span></div>
-        </div>
-        <div className="mt-8 flex items-center gap-2 font-mono-ui text-[10px] text-[hsl(var(--muted-foreground))]"><span className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--accent))]" /> open to thoughtful collaborations</div>
-      </aside>
     </section>
-
-    <section className="border-t border-[hsl(var(--border))] py-24">
-      <div className="flex items-end justify-between gap-4"><div><SectionLabel>Selected work</SectionLabel><h2 className="font-display text-[clamp(2.2rem,4vw,3.6rem)] leading-none tracking-[-.035em]">Things made to be used.</h2></div><ArrowLink href="/projects" className="hidden text-[12px] text-[hsl(var(--muted-foreground))] sm:inline-flex">View all {projects.length} projects</ArrowLink></div>
-      <div className="mt-12">
-        {featured.map((project, index) => <ProjectRow key={project.slug} project={project} index={index} />)}
+    <section className="border-t border-[hsl(var(--border))] py-10">
+      <SectionLabel>Currently</SectionLabel>
+      <div className="space-y-4 text-[15px] leading-[1.65]">
+        <p><span className="font-mono-ui text-[11px] text-[hsl(var(--accent))]">building</span><br />AI tools, open resources, and a YouTube knowledge practice.</p>
+        <p><span className="font-mono-ui text-[11px] text-[hsl(var(--accent))]">learning</span><br />Agentic systems, diffusion models, and better ways to teach with software.</p>
       </div>
-      <ArrowLink href="/projects" className="mt-8 text-[12px] text-[hsl(var(--muted-foreground))] sm:hidden">View all projects</ArrowLink>
     </section>
-
-    <section className="grid gap-16 border-t border-[hsl(var(--border))] py-24 lg:grid-cols-[.8fr_1.2fr]">
-      <div><SectionLabel>Field notes</SectionLabel><h2 className="max-w-[360px] font-display text-[clamp(2.2rem,4vw,3.6rem)] leading-[.96] tracking-[-.035em]">Still thinking in public.</h2><p className="mt-6 max-w-[320px] text-[14px] leading-[1.7] text-[hsl(var(--muted-foreground))]">Long-form writing is on its way. For now, the notebook is where ideas stay a little unfinished.</p><ArrowLink href="/notes" className="mt-7 text-[12px]">Open the notes</ArrowLink></div>
-      <div className="border-t border-[hsl(var(--border))]">{writings.map((writing) => <Link key={writing.slug} href={`/writings/${writing.slug}`} data-testid={`link-writing-${writing.slug}`} className="group block border-b border-[hsl(var(--border))] py-5 focus-ring"><div className="flex items-baseline justify-between gap-5"><span className="font-mono-ui text-[10px] uppercase tracking-[.13em] text-[hsl(var(--accent))]">{writing.date}</span><ArrowUpRight size={14} className="text-[hsl(var(--muted-foreground))] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div><h3 className="mt-2 text-[19px] tracking-[-.02em]">{writing.title}</h3><p className="mt-2 text-[13px] text-[hsl(var(--muted-foreground))]">{writing.excerpt}</p><div className="mt-3 flex gap-2 font-mono-ui text-[10px] text-[hsl(var(--muted-foreground))]">{writing.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div></Link>)}</div>
-    </section>
-
-    <section className="border-y border-[hsl(var(--border))] py-24 text-center">
-      <SectionLabel>Make contact</SectionLabel>
-      <h2 className="font-display text-[clamp(2.8rem,6vw,5.8rem)] leading-[.9] tracking-[-.045em]">Have something worth<br /><em className="text-[hsl(var(--accent))]">building?</em></h2>
-      <p className="mx-auto mt-6 max-w-[430px] text-[14px] leading-[1.7] text-[hsl(var(--muted-foreground))]">An interesting idea, a hard technical problem, or a resource worth sharing is usually enough.</p>
-      <a data-testid="link-home-email" href="mailto:abm1119@ethz.ch" className="focus-ring mt-7 inline-flex items-center gap-2 border-b border-[hsl(var(--accent))] pb-1 text-[14px] text-[hsl(var(--accent))]">abm1119@ethz.ch <ArrowUpRight size={14} /></a>
+    <section className="border-t border-[hsl(var(--border))] py-10 text-[14px] text-[hsl(var(--muted-foreground))]">
+      <span>elsewhere: </span><a className="focus-ring text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent))]" href="https://github.com/abm1119" target="_blank" rel="noreferrer">github</a><span> · </span><a className="focus-ring text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent))]" href="https://pk.linkedin.com/in/abdul-basit-memon-614961166" target="_blank" rel="noreferrer">linkedin</a><span> · </span><a className="focus-ring text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent))]" href="mailto:abm1119@ethz.ch">email</a>
     </section>
   </div>;
 }
