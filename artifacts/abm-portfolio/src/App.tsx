@@ -13,8 +13,29 @@ const queryClient = new QueryClient();
 function usePageMeta(title: string, description: string) {
   useEffect(() => {
     document.title = title;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', description);
+    const setMeta = (selector: string, content: string) => {
+      let meta = document.querySelector<HTMLMetaElement>(selector);
+      if (!meta) {
+        meta = document.createElement('meta');
+        const match = selector.match(/(?:name|property)="([^"]+)"/);
+        if (match) meta.setAttribute(selector.includes('property') ? 'property' : 'name', match[1]);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', content);
+    };
+    setMeta('meta[name="description"]', description);
+    setMeta('meta[property="og:title"]', title);
+    setMeta('meta[property="og:description"]', description);
+    setMeta('meta[property="og:url"]', window.location.href.split('?')[0]);
+    setMeta('meta[name="twitter:title"]', title);
+    setMeta('meta[name="twitter:description"]', description);
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = window.location.href.split('?')[0];
   }, [title, description]);
 }
 
@@ -32,11 +53,11 @@ function SiteHeader({ onCommand }: { onCommand: () => void }) {
   const go = (href: string) => { setOpen(false); setLocation(href); };
   return (
     <header className="relative z-20">
-      <div className="mx-auto flex min-h-[72px] max-w-[680px] items-center justify-between px-5">
+       <div className="mx-auto flex min-h-[72px] max-w-[1180px] items-center justify-between px-5 md:px-8">
         <Link href="/" data-testid="link-brand" className="focus-ring group flex items-center gap-3">
           <span className="text-[15px] font-semibold tracking-[-.04em]">abm</span>
         </Link>
-        <nav className="hidden items-center gap-5 text-[13px] md:flex" aria-label="Primary navigation">
+        <nav className="hidden flex-wrap items-center justify-end gap-x-4 gap-y-1 text-[11px] md:flex" aria-label="Primary navigation">
           {navItems.slice(1).map((item) => <Link key={item.href} href={item.href} data-testid={`link-nav-${item.label.toLowerCase()}`} className={`focus-ring transition-colors ${isActive(item.href) ? 'text-[hsl(var(--foreground))]' : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--accent))]'}`}>{item.label.toLowerCase()}</Link>)}
         </nav>
         <button data-testid="button-mobile-menu" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'} className="focus-ring flex items-center gap-2 text-[12px] md:hidden">
@@ -45,7 +66,7 @@ function SiteHeader({ onCommand }: { onCommand: () => void }) {
       </div>
       {open && <div className="border-t border-[hsl(var(--border))] px-5 py-4 md:hidden">
         <nav className="mx-auto flex max-w-[680px] flex-col gap-1" aria-label="Mobile navigation">
-          {[...navItems, { href: '/experience', label: 'Experience' }, { href: '/publications', label: 'Publications' }, { href: '/now', label: 'Now' }, { href: '/raw', label: 'Raw' }, { href: '/contact', label: 'Contact' }].map((item) => <button key={item.href} data-testid={`button-mobile-${item.label.toLowerCase()}`} onClick={() => go(item.href)} className="focus-ring flex w-full items-center justify-between border-b border-[hsl(var(--border)/.7)] py-3 text-left text-[14px]">{item.label}<ArrowRight size={14} className={isActive(item.href) ? 'text-[hsl(var(--accent))]' : 'text-[hsl(var(--muted-foreground))]'} /></button>)}
+           {navItems.map((item) => <button key={item.href} data-testid={`button-mobile-${item.label.toLowerCase()}`} onClick={() => go(item.href)} className="focus-ring flex w-full items-center justify-between border-b border-[hsl(var(--border)/.7)] py-3 text-left text-[14px]">{item.label}<ArrowRight size={14} className={isActive(item.href) ? 'text-[hsl(var(--accent))]' : 'text-[hsl(var(--muted-foreground))]'} /></button>)}
           <button data-testid="button-command-mobile" onClick={() => { setOpen(false); onCommand(); }} className="focus-ring flex items-center gap-2 pt-4 text-left text-[12px] text-[hsl(var(--muted-foreground))]"><Search size={14} /> Search this site <span className="font-mono-ui ml-auto">⌘K</span></button>
         </nav>
       </div>}
@@ -70,14 +91,7 @@ function SiteFooter() {
 function CommandPalette({ onClose }: { onClose: () => void }) {
   const [, setLocation] = useLocation();
   const [query, setQuery] = useState('');
-  const commands = [
-    ...navItems,
-    { href: '/experience', label: 'Experience' },
-    { href: '/publications', label: 'Publications' },
-    { href: '/now', label: 'Now' },
-    { href: '/raw', label: 'Raw' },
-    { href: '/contact', label: 'Contact' },
-  ];
+  const commands = navItems;
   const results = commands.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()));
   const go = (href: string) => { setLocation(href); onClose(); };
   useEffect(() => {
@@ -131,12 +145,17 @@ function Home() {
     { href: '/notes', label: 'notes', description: 'small ideas before they become articles' },
     { href: '/about', label: 'about', description: 'the person behind the tabs' },
     { href: '/now', label: 'now', description: 'what has my attention lately' },
+    { href: '/experience', label: 'experience', description: 'education, programs, and builder background' },
+    { href: '/publications', label: 'publications', description: 'research and academic work' },
+    { href: '/contact', label: 'contact', description: 'start a conversation about a role or project' },
+    { href: '/raw', label: 'raw', description: 'the plain-text map of this site' },
   ];
   return <div className="mx-auto max-w-[680px] px-5">
     <section className="py-24 sm:py-32">
       <div className="font-mono-ui text-[11px] text-[hsl(var(--muted-foreground))]">Abdul Basit Memon · Pakistan</div>
       <h1 className="mt-6 max-w-[610px] text-[clamp(2.5rem,8vw,4.6rem)] font-semibold leading-[1.02] tracking-[-.065em]">I build things with software, AI, and an unreasonable number of browser tabs.</h1>
-      <p className="mt-7 max-w-[520px] text-[16px] leading-[1.7] text-[hsl(var(--muted-foreground))]">Computer systems engineer, creative technologist, and independent builder. Interested in AI tools, education, local-first software, design, and making useful ideas easier to reach.</p>
+       <p className="mt-7 max-w-[520px] text-[16px] leading-[1.7] text-[hsl(var(--muted-foreground))]">Computer systems engineer, AI builder, and creative technologist from Pakistan. I make useful software across agentic AI, developer tools, education, local-first systems, mobile apps, and embedded technology.</p>
+       <p className="mt-5 max-w-[520px] text-[15px] leading-[1.7] text-[hsl(var(--muted-foreground))]">If you’re hiring for a curious engineer who can move from a rough idea to a working prototype, <Link href="/experience" className="focus-ring text-[hsl(var(--accent))] underline decoration-[hsl(var(--accent)/.35)] underline-offset-4">start with my experience</Link> or <Link href="/contact" className="focus-ring text-[hsl(var(--accent))] underline decoration-[hsl(var(--accent)/.35)] underline-offset-4">send me a note</Link>.</p>
     </section>
     <section className="border-t border-[hsl(var(--border))] py-10">
       <SectionLabel>Around here</SectionLabel>

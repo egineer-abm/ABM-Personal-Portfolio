@@ -8,6 +8,11 @@
 - [Experience](https://www.engrabm.com/experience)
 - [Now](https://www.engrabm.com/now)
 - [Contact](https://www.engrabm.com/contact)
+- [Projects archive](https://www.engrabm.com/projects)
+- [Writings](https://www.engrabm.com/writings)
+- [Notes](https://www.engrabm.com/notes)
+- [Publications](https://www.engrabm.com/publications)
+- [Raw site map](https://www.engrabm.com/raw)
 
 ## Selected projects
 
@@ -18,6 +23,13 @@
 - [Roznama](https://www.engrabm.com/projects/roznama) — Markdown notes and personal wiki with Git sync.
 - [Notion Vault](https://www.engrabm.com/projects/notion-vault) — portable local password manager.
 - [Resources Heaven](https://www.engrabm.com/projects/resources-heaven) — community-maintained technology and AI resource hub.
+- [Agentic Learning-Mentor](https://www.engrabm.com/projects/agentic-learning-mentor) — adaptive teaching skill for AI-first developer environments.
+- [Intelligent Carpooling App](https://www.engrabm.com/projects/intelligent-carpooling-app) — mobile ride matching with route overlap and Mapbox.
+- [TechdioApp](https://www.engrabm.com/projects/techdioapp) — cross-platform technology learning app.
+- [Prompt Inspector](https://www.engrabm.com/projects/prompt-inspector) — local prompt analysis, hardening, and evaluation tool.
+- [Arduino Night Patrol](https://www.engrabm.com/projects/arduino-night-patrol) — embedded surveillance robot with sensor-based alerts.
+- [Student Management System](https://www.engrabm.com/projects/student-management-system) — academic administration web application.
+- [Arduino Vehicle Speed Detector](https://www.engrabm.com/projects/arduino-vehicle-speed-detector) — IR-based speed measurement workshop project.
 
 ## Writing
 

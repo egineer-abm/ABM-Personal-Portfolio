@@ -219,4 +219,9 @@ export const navItems = [
   { href: '/writings', label: 'Writings' },
   { href: '/notes', label: 'Notes' },
   { href: '/about', label: 'About' },
+  { href: '/experience', label: 'Experience' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/now', label: 'Now' },
+  { href: '/raw', label: 'Raw' },
+  { href: '/contact', label: 'Contact' },
 ];
