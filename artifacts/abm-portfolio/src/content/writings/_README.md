@@ -2,6 +2,8 @@
 
 Everything on `/writings` comes from the `.md` files in this folder. Edit them like any markdown file and the site updates (hot reload in dev).
 
+For the complete field reference, formatting limits, preview, and publishing steps, see the [Content editor guide](../../../CONTENT_EDITOR_GUIDE.md).
+
 ## Add a writing
 
 Create a new file, e.g. `my-essay.md` (the filename becomes the URL slug):

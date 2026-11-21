@@ -2,9 +2,11 @@
 
 Everything on `/startups` comes from the `.md` files in this folder. Edit them like any markdown file and the site updates (hot reload in dev).
 
+For the complete field reference, formatting limits, preview, and publishing steps, see the [Content editor guide](../../../CONTENT_EDITOR_GUIDE.md).
+
 ## Add a startup
 
-Create a new file named after the startup, e.g. `my-startup.md` (the filename becomes the URL slug / test id):
+Create a new file named after the startup, e.g. `my-startup.md`. Its filename identifies the entry internally; startup descriptions appear on `/startups` and do not have individual detail URLs.
 
 ```md
 ---

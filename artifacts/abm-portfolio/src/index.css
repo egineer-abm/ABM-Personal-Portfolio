@@ -115,6 +115,7 @@ html, body { overflow-x: clip; }
 }
 
 .edge-cta {
+  display: inline-flex;
   min-height: 44px;
   align-items: center;
   justify-content: center;
@@ -127,6 +128,8 @@ html, body { overflow-x: clip; }
   transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out), transform 100ms var(--ease-out);
 }
 .edge-cta:hover { color: var(--color-paper); background: var(--color-ink); }
+.edge-cta svg { transition: transform var(--dur-micro) var(--ease-out); }
+.edge-cta:hover svg { transform: translateX(2px); }
 .edge-cta:active { transform: translateY(1px); }
 .edge-cta:focus-visible, .text-link:focus-visible, .home-index__row:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 
@@ -171,6 +174,13 @@ html, body { overflow-x: clip; }
   line-height: .88;
   letter-spacing: -.055em;
   overflow-wrap: anywhere;
+}
+.home-hero__highlight {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .1em;
 }
 .home-hero__body {
   max-width: 36rem;

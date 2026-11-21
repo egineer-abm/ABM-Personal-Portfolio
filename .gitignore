@@ -47,3 +47,18 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Custom workspace & conversation folders
+.conversation/
+.agents/
+.github/
+!.github/
+!.github/workflows/
+.hallmark/
+
+# Local guides & markdown copies
+RUNNING_COMMANDS.md
+about-page-copy.md
+certificates.md
+replit.md
+

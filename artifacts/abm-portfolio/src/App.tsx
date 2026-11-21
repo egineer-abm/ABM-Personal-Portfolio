@@ -56,7 +56,7 @@ function SiteHeader({ onCommand }: { onCommand: () => void }) {
   return (
     <header className="relative z-20 border-b border-[hsl(var(--border))]">
        <div className="mx-auto flex min-h-[68px] max-w-[1180px] items-center justify-between px-5 md:px-8">
-        <Link href="/" data-testid="link-brand" className="focus-ring group flex items-center gap-3">
+        <Link href="/" onClick={() => sessionStorage.removeItem('portfolio-route')} data-testid="link-brand" className="focus-ring group flex items-center gap-3">
           <span className="wordmark">Abdul Basit Memon</span>
         </Link>
         <Link href="/projects" data-testid="link-nav-projects" className="edge-cta hidden focus-ring md:inline-flex">View work <ArrowRight size={14} /></Link>
@@ -144,12 +144,16 @@ function Home() {
     { href: '/projects', label: 'Projects', description: 'AI systems, developer tools, apps, and hardware', mark: '01' },
     { href: '/startups', label: 'Startups', description: 'Ventures building from local problems outward', mark: '02' },
     { href: '/experience', label: 'Experience', description: 'Teaching, engineering, and academic work', mark: '03' },
-    { href: '/writings', label: 'Writing', description: 'Notes on software, AI, and education', mark: '04' },
+    { href: '/writings', label: 'Writings', description: 'Essays on software, AI, and education', mark: '04' },
+    { href: '/about', label: 'About', description: 'Background, interests, and current direction', mark: '05' },
+    { href: '/publications', label: 'Publications', description: 'Research and academic work', mark: '06' },
+    { href: '/notes', label: 'Notes', description: 'Short ideas on tools, learning, and AI', mark: '07' },
+    { href: '/contact', label: 'Contact', description: 'Get in touch about ideas and projects', mark: '08' },
   ];
   return <div className="home-shell mx-auto max-w-[1180px] px-5 md:px-8">
     <section className="home-hero">
       <p className="home-hero__place">Khairpur, Pakistan · Computer Systems Engineering</p>
-      <h1>I teach AI and build it into useful systems.</h1>
+      <h1>I teach AI and build it into <span className="home-hero__highlight">useful systems.</span></h1>
       <div className="home-hero__body">
         <p>Abdul Basit Memon — engineer, educator, and independent builder. I turn rough ideas into practical agentic tools, learning software, and open resources.</p>
         <div className="home-hero__actions">
@@ -187,7 +191,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 function Projects() {
   usePageMeta('Projects — Abdul Basit Memon', 'A working archive of AI systems, developer tools, mobile apps, embedded experiments, and academic projects.');
   const [filter, setFilter] = useState('All');
-  const categories = ['All', 'AI', 'Tools', 'Open source', 'Mobile', 'Hardware', 'Web'];
+  const categories = ['All', ...Array.from(new Set(projects.map((project) => project.category))).sort((a, b) => a.localeCompare(b))];
   const filtered = filter === 'All' ? projects : projects.filter((project) => project.category === filter);
   return <div className="mx-auto max-w-[1180px] px-5 py-20 md:px-8 md:py-28"><PageIntro kicker="Archive / 01" title="Projects"><span>Things I’ve built, experimented with, broken, rebuilt, and occasionally shipped. The archive spans agentic AI, local-first tools, education, mobile software, and hardware.</span></PageIntro>
     <div className="mb-8 flex flex-wrap gap-x-5 gap-y-3 border-y border-[hsl(var(--border))] py-4" role="tablist" aria-label="Filter projects">{categories.map((category) => <button key={category} data-testid={`button-filter-${category.toLowerCase().replace(' ', '-')}`} onClick={() => setFilter(category)} role="tab" aria-selected={filter === category} className={`focus-ring font-mono-ui text-[10px] uppercase tracking-[.12em] transition-colors ${filter === category ? 'text-[hsl(var(--accent))]' : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]'}`}>{category}</button>)}</div>
