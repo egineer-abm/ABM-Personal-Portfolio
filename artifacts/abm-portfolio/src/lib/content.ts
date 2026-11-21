@@ -1,3 +1,5 @@
+import { isTruthy, orderOf, parseLinks, readCollection, splitList } from '@/lib/frontmatter';
+
 export type Project = {
   slug: string;
   title: string;
@@ -12,216 +14,101 @@ export type Project = {
   featured?: boolean;
 };
 
-export const projects: Project[] = [
-  {
-    slug: 'agere',
-    title: 'AGERE',
-    eyebrow: 'Agentic recruiter',
-    description: 'A recruitment agent that helps candidates move through the interview process with more context and less friction.',
-    detail: 'Built as the capstone for Google’s 5-Day AI Agents Intensive Course on Kaggle. AGERE combines Google ADK, retrieval-augmented generation, Streamlit, and Gemini to guide candidates through interview phases while supporting intelligent evaluation and screening workflows.',
-    category: 'AI',
-    status: 'Completed capstone',
-    year: '2025',
-    stack: ['Google ADK', 'RAG', 'Streamlit', 'Gemini API'],
-    links: [{ label: 'Kaggle write-up', href: 'https://kaggle.com/competitions/agents-intensive-capstone-project/writeups/agere-agentic-recruiter' }],
-    featured: true,
-  },
-  {
-    slug: 'bita',
-    title: 'BITA',
-    eyebrow: 'Local AI invoice manager',
-    description: 'An OCR-enabled local app for tracking vendor invoices, profiles, prices, and payment status.',
-    detail: 'BITA was built during Google for Startups’ Startup School: Prompt to Prototype. It uses Gemini OCR and React + Vite to digitize invoices for local businesses. Abdul is also exploring a version shaped around the vendor-bill realities of his father’s bakery.',
-    category: 'AI',
-    status: 'Working prototype',
-    year: '2025',
-    stack: ['Gemini OCR', 'React', 'Vite'],
-    links: [],
-    featured: true,
-  },
-  {
-    slug: 'sb0',
-    title: 'SB0',
-    eyebrow: 'Second brain cognitive engine',
-    description: 'A local-first knowledge base with multi-file previews, RAG search, BYOK support, and an interactive graph.',
-    detail: 'SB0 treats a knowledge base as something you can inspect, query, and connect. It previews PDFs, Markdown, images, and documents, then uses semantic retrieval to fetch precise context. Modification triggers help keep connected knowledge nodes organized.',
-    category: 'Tools',
-    status: 'Open source',
-    year: '2025',
-    stack: ['Gemini BYOK', 'RAG', 'Knowledge graph'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/abm1119/SB0' }],
-    featured: true,
-  },
-  {
-    slug: 'tool-stash',
-    title: 'Tool Stash',
-    eyebrow: 'Agentic bookmarking',
-    description: 'A tool discovery and bookmarking system with web search, context, and a human approval layer.',
-    detail: 'Tool Stash lets a person describe a tool or link in natural language. An agent searches the web, explains what it found, and asks for approval before saving it into an organized Notion database. The result is a library that stays curated rather than becoming another forgotten bookmark folder.',
-    category: 'Tools',
-    status: 'Live web app',
-    year: '2025',
-    stack: ['Agentic AI', 'Notion DB API', 'Web search'],
-    links: [{ label: 'Open live app', href: 'https://abm-tools.lovable.app/' }],
-    featured: true,
-  },
-  {
-    slug: 'roznama',
-    title: 'Roznama',
-    eyebrow: 'Daily notes & personal wiki',
-    description: 'A distraction-free Markdown notebook with Git backup and an offline cognitive engine.',
-    detail: 'Roznama is designed around the feeling of writing in a personal notebook, while keeping the affordances of a developer tool. Slash commands, fuzzy matching, related-note mapping, Git sync, and integrations for Claude Code, Gemini CLI, and Cursor keep the archive useful without requiring cloud AI.',
-    category: 'Tools',
-    status: 'Private repo · on demand',
-    year: '2025',
-    stack: ['Markdown', 'Git', 'Offline search', 'Agent skills'],
-    links: [],
-    featured: true,
-  },
-  {
-    slug: 'notion-vault',
-    title: 'Notion Vault',
-    eyebrow: 'Local password manager',
-    description: 'A portable, offline password manager with a desktop app and companion Chrome extension.',
-    detail: 'Notion Vault keeps credentials local: a Python desktop app built with Tkinter and ttkbootstrap, Flask + Waitress, SQLite3, and a companion Chrome extension for browser filling. It is open source and distributed as a portable executable.',
-    category: 'Tools',
-    status: 'Open source',
-    year: '2025',
-    stack: ['Python', 'Flask', 'SQLite3', 'Chrome extension'],
-    links: [{ label: 'GitHub releases', href: 'https://github.com/abm1119/password-manager-vault/releases' }],
-    featured: true,
-  },
-  {
-    slug: 'kutbi',
-    title: 'Kutbi',
-    eyebrow: 'YouTube learning engine',
-    description: 'Turns videos and channel feeds into structured, actionable five-minute exercises.',
-    detail: 'Kutbi fetches transcripts, topics, resource links, tools, and code snippets, then turns the raw material into a short practical exercise. It processes up to two videos concurrently to keep API usage measured.',
-    category: 'AI',
-    status: 'Local open source',
-    year: '2025',
-    stack: ['FastAPI', 'Streamlit', 'Groq', 'yt-dlp'],
-    links: [],
-  },
-  {
-    slug: 'prompt-inspector',
-    title: 'Prompt Inspector',
-    eyebrow: 'Prompt analysis & hardening',
-    description: 'A local UI and CLI for analyzing prompts, stress-testing them, and exporting hardened versions.',
-    detail: 'Prompt Inspector gives prompts a place to be examined before they are trusted. It parses structure, detects vulnerabilities, scores quality, generates adversarial variants, and exports Markdown, JSON, and guardrail manifests.',
-    category: 'AI',
-    status: 'Open source',
-    year: '2025',
-    stack: ['Python', 'Local web UI', 'CLI'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/abm1119/prompt-inspector' }],
-  },
-  {
-    slug: 'resources-heaven',
-    title: 'Resources Heaven',
-    eyebrow: 'Community knowledge hub',
-    description: 'A community-maintained collection of 1,000+ curated resources for learning, research, design, and AI.',
-    detail: 'Resources Heaven packages the things Abdul finds while learning into something other people can use: learning sites, research tools, AI tutors, image and video generators, UI tools, presentation tools, and vibe-coding guides.',
-    category: 'Open source',
-    status: 'Community maintained',
-    year: '2024–',
-    stack: ['Markdown', 'GitHub'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/abm1119/Resources-Heaven' }],
-  },
-  {
-    slug: 'agentic-learning-mentor',
-    title: 'Agentic Learning-Mentor',
-    eyebrow: 'Adaptive mentorship skill',
-    description: 'An agentic IDE skill that learns how someone learns before it starts teaching.',
-    detail: 'Rather than returning reference code immediately, the skill assesses a learner’s level and project context, then guides them from core concepts toward production-grade implementation. It works across Claude Code, Gemini CLI, GitHub Copilot, Cursor, and other AI-first environments.',
-    category: 'AI',
-    status: 'Open source',
-    year: '2025',
-    stack: ['Tessl', 'Agentic IDEs', 'AI assistants'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/abm1119/agentic-learning-mentor' }],
-  },
-  {
-    slug: 'intelligent-carpooling-app',
-    title: 'Intelligent Carpooling App',
-    eyebrow: 'Final year capstone',
-    description: 'A mobile ride-matching system using route overlap, live GPS tracking, and Mapbox.',
-    detail: 'The capstone explored matching drivers and passengers on similar routes while reducing unnecessary compute. The accompanying thesis evaluated route matching and overlap feasibility using A* against Dijkstra and greedy approaches.',
-    category: 'Mobile',
-    status: 'University project',
-    year: '2025',
-    stack: ['Android', 'Java', 'Kotlin', 'Firebase', 'Mapbox', 'A*'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/urooj-marvi/Carpooling_App' }],
-  },
-  {
-    slug: 'techdioapp',
-    title: 'TechdioApp',
-    eyebrow: 'Mobile learning hub',
-    description: 'A cross-platform learning app for courses, tutor sessions, and offline-capable progress.',
-    detail: 'Built in the seventh semester as a hands-on exploration of .NET MAUI, MVVM, CRUD flows, APK binaries, and REST APIs. The app combines curated technology courses with one-on-one tutor scheduling.',
-    category: 'Mobile',
-    status: 'University project',
-    year: '2024',
-    stack: ['.NET MAUI', 'C#', 'SQLite', 'Firebase', 'XAML'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/abm1119/TechdioApp' }],
-  },
-  {
-    slug: 'arduino-night-patrol',
-    title: 'Arduino Night Patrol Surveillance Robot',
-    eyebrow: 'Embedded systems',
-    description: 'An autonomous mobile robot for night surveillance, obstacle avoidance, and alerts.',
-    detail: 'The seventh-semester Open Lab project combines IR sensors for darkness detection, PIR for motion, ultrasonic sensing for obstacles, and a laser and buzzer for alerts on a mobile car frame.',
-    category: 'Hardware',
-    status: 'University project',
-    year: '2024',
-    stack: ['Arduino Uno', 'IR', 'PIR', 'Ultrasonic', 'C++'],
-    links: [{ label: 'Instructables tutorial', href: 'https://www.instructables.com/Arduino-Servilliance-Mobile-Robot/' }],
-  },
-  {
-    slug: 'student-management-system',
-    title: 'Student Management System',
-    eyebrow: 'Academic administration',
-    description: 'A web application for course registrations, student progress, and batch monitoring.',
-    detail: 'Built in final-semester coursework to address the administrative bottlenecks faced by class advisors balancing course and final-year project supervision.',
-    category: 'Web',
-    status: 'University project',
-    year: '2025',
-    stack: ['ASP.NET Core', 'EF Core', 'SQL Server', 'JavaScript'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/abm1119/student-management-app' }],
-  },
-  {
-    slug: 'arduino-vehicle-speed-detector',
-    title: 'Arduino Vehicle Speed Detector',
-    eyebrow: 'Engineering workshop',
-    description: 'An IR break-beam system that measures vehicle speed and displays it on an LCD.',
-    detail: 'A two-person first-semester workshop project focused on sensor calibration, circuit design, microcontrollers, and real-time output.',
-    category: 'Hardware',
-    status: 'University project',
-    year: '2021',
-    stack: ['Arduino Uno', 'IR sensors', '16×2 LCD', 'C++'],
-    links: [{ label: 'GitHub repo', href: 'https://github.com/abm1119/Arduino-Vehicle-Speed-Detector-' }],
-  },
-];
+export type Writing = {
+  slug: string;
+  date: string;
+  title: string;
+  tags: string[];
+  excerpt: string;
+  body: string;
+};
 
-export const writings = [
-  { slug: 'local-first-software', date: 'In progress', title: 'Building Local-First Software', tags: ['software', 'privacy'], excerpt: 'Why tools that keep their centre of gravity on your machine keep pulling me back.' },
-  { slug: 'agents-that-teach', date: 'A notebook for later', title: 'What an Agent Should Know Before It Teaches', tags: ['agents', 'education'], excerpt: 'A learning mentor needs a model of the learner, not just a model with an answer.' },
-  { slug: 'tools-as-material', date: 'A working draft', title: 'AI Tools as Building Material', tags: ['AI', 'design'], excerpt: 'The interesting question is less which tool won, and more what became possible after it arrived.' },
-];
+export type Note = {
+  slug: string;
+  date: string;
+  title: string;
+  tags: string[];
+  body: string;
+};
 
-export const notes = [
-  { slug: 'local-first-pull', title: 'Why local-first software keeps appealing to me', tags: ['software', 'privacy'], date: 'ongoing' },
-  { slug: 'rag-as-architecture', title: 'RAG is less a feature than a way of arranging attention', tags: ['rag', 'llm'], date: 'ongoing' },
-  { slug: 'teaching-through-tools', title: 'Good learning tools leave room for the learner to think', tags: ['education', 'design'], date: 'ongoing' },
-];
+const projectModules = import.meta.glob('/src/content/projects/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+const writingModules = import.meta.glob('/src/content/writings/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+const noteModules = import.meta.glob('/src/content/notes/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+export const projects: Project[] = readCollection(projectModules)
+  .map(({ slug, meta, body }) => ({
+    slug,
+    meta,
+    project: {
+      slug,
+      title: meta.title || slug.replace(/-/g, ' '),
+      eyebrow: meta.eyebrow || '',
+      description: meta.description || body.split('\n')[0] || '',
+      detail: body,
+      category: meta.category || 'Tools',
+      status: meta.status || '',
+      year: meta.year || '',
+      stack: splitList(meta.stack),
+      links: parseLinks(meta.links),
+      featured: isTruthy(meta.featured) || undefined,
+    } satisfies Project,
+  }))
+  .sort((a, b) => orderOf(a.meta) - orderOf(b.meta) || a.project.title.localeCompare(b.project.title))
+  .map(({ project }) => project);
+
+export const writings: Writing[] = readCollection(writingModules)
+  .map(({ slug, meta, body }) => ({
+    slug,
+    meta,
+    writing: {
+      slug,
+      date: meta.date || '',
+      title: meta.title || slug.replace(/-/g, ' '),
+      tags: splitList(meta.tags),
+      excerpt: meta.excerpt || body.split('\n')[0] || '',
+      body,
+    } satisfies Writing,
+  }))
+  .sort((a, b) => orderOf(a.meta) - orderOf(b.meta) || a.writing.title.localeCompare(b.writing.title))
+  .map(({ writing }) => writing);
+
+export const notes: Note[] = readCollection(noteModules)
+  .map(({ slug, meta, body }) => ({
+    slug,
+    meta,
+    note: {
+      slug,
+      date: meta.date || '',
+      title: meta.title || slug.replace(/-/g, ' '),
+      tags: splitList(meta.tags),
+      body,
+    } satisfies Note,
+  }))
+  .sort((a, b) => orderOf(a.meta) - orderOf(b.meta) || a.note.title.localeCompare(b.note.title))
+  .map(({ note }) => note);
 
 export const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/writings', label: 'Writings' },
-  { href: '/notes', label: 'Notes' },
   { href: '/about', label: 'About' },
   { href: '/experience', label: 'Experience' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/startups', label: 'Startups' },
   { href: '/publications', label: 'Publications' },
-  { href: '/now', label: 'Now' },
-  { href: '/raw', label: 'Raw' },
+  { href: '/writings', label: 'Writings' },
+  { href: '/notes', label: 'Notes' },
   { href: '/contact', label: 'Contact' },
 ];

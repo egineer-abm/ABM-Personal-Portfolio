@@ -6,13 +6,12 @@
 
 - [About](https://www.engrabm.com/about)
 - [Experience](https://www.engrabm.com/experience)
-- [Now](https://www.engrabm.com/now)
 - [Contact](https://www.engrabm.com/contact)
 - [Projects archive](https://www.engrabm.com/projects)
 - [Writings](https://www.engrabm.com/writings)
 - [Notes](https://www.engrabm.com/notes)
 - [Publications](https://www.engrabm.com/publications)
-- [Raw site map](https://www.engrabm.com/raw)
+- [Startups](https://www.engrabm.com/startups)
 
 ## Selected projects
 
@@ -43,5 +42,5 @@
 ## Links
 
 - [GitHub](https://github.com/abm1119)
-- [LinkedIn](https://pk.linkedin.com/in/abdul-basit-memon-614961166)
-- [Email](mailto:abm1119@ethz.ch)
+- [LinkedIn](https://www.linkedin.com/in/engrabm)
+- [Email](mailto:basitmemon67@gmail.com)
